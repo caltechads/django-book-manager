@@ -27,7 +27,7 @@ copyright = '2022, Caltech IMSS ADS'  # pylint: disable=redefined-builtin
 author = 'Caltech IMSS ADS'
 
 # The full version, including alpha/beta/rc tags
-release = '1.1.0'
+release = '0.1.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -65,7 +65,6 @@ autodoc_type_aliases = {
 # the locations and names of other projects that should be linked to this one
 intersphinx_mapping: Dict[str, Tuple[str, Optional[str]]] = {
     'python': ('https://docs.python.org/3', None),
-
 }
 
 
