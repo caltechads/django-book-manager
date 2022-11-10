@@ -1,0 +1,6 @@
+include MANIFEST.in
+include LICENSE.txt
+include README.md
+include book_manager/py.typed
+include book_manager/static
+include book_manager/templates

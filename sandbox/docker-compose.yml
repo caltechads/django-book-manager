@@ -1,0 +1,41 @@
+---
+version: "3.8"
+
+services:
+  demo:
+    image: book_manager_demo:latest
+    user: root
+    container_name: book_manager_demo
+    restart: always
+    hostname: book_manager_demo
+    environment:
+      - DEBUG=True
+      - DEVELOPMENT=True
+    ports:
+      - "443:443"
+    depends_on:
+      - mysql
+    volumes:
+      - .:/app
+      - ../book_manager:/ve/lib/python3.10/site-packages/book_manager
+      - ../../django-theme-academy/academy_theme:/ve/lib/python3.10/site-packages/academy_theme
+
+  mysql:
+    image: mysql:8.0.23
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+    cap_add:
+      # removes error messages like: mbind: Operation not permitted
+      - SYS_NICE
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./sql/docker/my.cnf:/etc/mysql/conf.d/dev.cnf
+      - ./sql/docker:/docker-entrypoint-initdb.d
+      - book_manager_demo_data:/var/lib/mysql
+
+volumes:
+  # The Docker volume in which the database's files are stored. Works in tandem
+  # with the "demo_data:/var/lib/mysql" volume mount defined above.
+  book_manager_demo_data:
