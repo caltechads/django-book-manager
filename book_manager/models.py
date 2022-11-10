@@ -73,9 +73,13 @@ class Author(TimeStampedModel, models.Model):
         unique=True
     )
 
+    def __str__(self):
+        return self.full_name
+
     class Meta:
         verbose_name: str = _('author')
         verbose_name_plural: str = _('authors')
+        ordering = ['last_name', 'first_name', 'middle_name']
 
 
 class Book(TimeStampedModel, models.Model):
@@ -176,6 +180,7 @@ class Book(TimeStampedModel, models.Model):
     class Meta:
         verbose_name: str = _('book')
         verbose_name_plural: str = _('books')
+        ordering = ['title']
 
 
 class BookAuthor(models.Model):
