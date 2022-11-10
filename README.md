@@ -4,7 +4,7 @@ This reusable Django application provides models suitable for managing a list of
 books with ratings, somewhat like a private [Goodreads](https://goodreads.com).
 
 Its real purpose is to provide sample models, with sample data, for use in
-testing other Django libraries.  Often, when authoring new django libraries, we
+testing other Django libraries.  Often, when authoring new Django libraries, we
 need a simple example application to use so that we can test out our code.
 
 ## Getting It
@@ -48,6 +48,7 @@ Then, apply the migrations to add the schema to your database:
 
 * `book_manager.Book`:  a book with title, slug, publishing dates, number of pages, authors, etc.
 * `book_manager.Author`:  an author.  `book_manager.Book` has a many to many relationship with this
+* `book_manager.BookAuthor`:  this is a many to many through table between `book_manager.Book` and `book_manager.Author` that exists to record billing order of authors on a book (first author, second author, etc.)
 * `book_manager.Publisher`:  a publisher.  `book_manager.Book` has a foreign key relationship with this
 * `book_manager.Binding`: a binding (hardcover, softcover, ebook, ...).  `book_manager.Book` has a foreign key relationship with this
 

@@ -15,6 +15,10 @@ FK = models.ForeignKey
 
 
 class Binding(models.Model):
+    """
+    A binding of a :py:class:`Book` ("ebook", "mass market paperback",
+    "hardcover", etc.).  Books have zero or one bindings.
+    """
 
     name: F = models.CharField(
         _('Binding type'),
@@ -28,6 +32,9 @@ class Binding(models.Model):
 
 
 class Publisher(TimeStampedModel, models.Model):
+    """
+    A publisher of a :py:class:`Book`.  Books have zero or one publishers.
+    """
 
     name: F = models.CharField(
         _('Publisher name'),
@@ -41,6 +48,9 @@ class Publisher(TimeStampedModel, models.Model):
 
 
 class Author(TimeStampedModel, models.Model):
+    """
+    An author of a :py:class:`Book`.  Books can have multiple authors.
+    """
 
     first_name: F = models.CharField(
         _('First name'),
@@ -129,21 +139,77 @@ class Book(TimeStampedModel, models.Model):
     authors: M2M = models.ManyToManyField(
         Author,
         verbose_name=_('Authors'),
-        related_name='books'
+        related_name='books',
+        through='BookAuthor'
     )
     readers: M2M = models.ManyToManyField(
         get_user_model(),
-        verbose_name=_('Owners'),
+        verbose_name=_('Readers'),
         related_name='books',
         through='Reading'
     )
+
+    @property
+    def primary_author(self) -> Author:
+        """
+        Return the top-billed author for this book.  This is the author
+        with ``order=1`` in our :py:class:`BookAuthor` through table.
+
+        Returns:
+            The :py:class:`Author` object for the primary author
+        """
+        return self.authors.get(bookauthor__order=1)
+
+    @property
+    def other_authors(self) -> "models.QuerySet[Author]":
+        """
+        Return all authors other than the top-billed author for this book.
+        These are the authors with ``order>1`` in our :py:class:`BookAuthor`
+        through table.
+
+        Returns:
+            The queryset of :py:class:`Author` objects for the non-primary
+            author.
+        """
+        return self.authors.filter(bookauthor__order__gt=1)
 
     class Meta:
         verbose_name: str = _('book')
         verbose_name_plural: str = _('books')
 
 
+class BookAuthor(models.Model):
+    """
+    This is a through table between :py:class:`Book` and :py:class:`Author` that
+    allows us to keep our book authors in the correct order.
+    """
+
+    book = models.ForeignKey(
+        Book,
+        on_delete=models.CASCADE,
+    )
+    author = models.ForeignKey(
+        Author,
+        on_delete=models.CASCADE,
+        verbose_name=_('Author'),
+    )
+    order = models.PositiveIntegerField(
+        _('Author order'),
+        default=1
+    )
+
+    class Meta:
+        unique_together = ('book', 'author', 'order')
+        verbose_name: str = _('book author')
+        verbose_name_plural: str = _('book authors')
+        ordering = ('book', 'order',)
+
+
 class Shelf(models.Model):
+    """
+    This model is used to organize :py:class:`Reading` instances for a user into
+    buckets ("read", "to-read", "abandoned").  Shelves are per-user.
+    """
 
     name: F = models.CharField(
         _('Shelf name'),
@@ -164,6 +230,9 @@ class Shelf(models.Model):
 
 
 class Reading(TimeStampedModel, models.Model):
+    """
+    This model holds user-specific data about a reading of a :py:class:`Book`
+    """
 
     rating = models.PositiveIntegerField(
         _('Rating'),

@@ -6,7 +6,7 @@ from typing import Dict, Any
 from django.contrib.auth import get_user_model
 from nameparser import HumanName
 
-from .models import Book, Author, Binding, Publisher, Reading, Shelf
+from .models import Book, BookAuthor, Author, Binding, Publisher, Reading, Shelf
 
 logger = logging.getLogger('book_manager.importers')
 
@@ -154,12 +154,15 @@ class GoodreadsImporter:
             book.save()
             primary_author = HumanName(row['Author'])
             book.authors.clear()
+            author_order = 1
+            BookAuthor.objects.create(book=book, author=self.authors_map[str(primary_author)], order=author_order)
             book.authors.add(self.authors_map[str(primary_author)])
             if row['Additional Authors']:
                 others = row['Additional Authors'].split(', ')
                 for author in others:
+                    author_order += 1
                     n = HumanName(author)
-                    book.authors.add(self.authors_map[str(n)])
+                    BookAuthor.objects.create(book=book, author=self.authors_map[str(n)], order=author_order)
         if created:
             logger.info('%s.book.created title="%s"', self.__class__.__name__, book.title)
         else:
