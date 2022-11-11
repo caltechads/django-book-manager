@@ -1,5 +1,5 @@
 -e .
--r docs/requirements.txt
+-r doc/requirements.txt
 -r sandbox/requirements.txt
 
 # Packaging
