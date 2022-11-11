@@ -2,6 +2,14 @@
 # See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
 version: 2
 
+build:
+  image: latest
+  apt_packages:
+    - gcc
+    - libssl1.1
+    - libssl-dev
+    - libmysqlclient-dev
+
 sphinx:
   configuration: doc/source/conf.py
 
