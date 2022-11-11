@@ -15,9 +15,15 @@ User = get_user_model()
 
 class GoodreadsImporter:
     """
+    **Usage**: ``GoodreadsImporter().run(csv_filename, user)``
+
     Import data into our database from a Goodreeads CSV Export.
 
-    A Goodreads export has these columns:
+    * Import the book from each row as a :py:class:`Book`
+    * Import the user specific data from each row as a :py:class:`Reading`
+      associated with the user ``user``
+
+    A Goodreads CSV export has these columns:
 
     +---------------------------------+----------------+------------------------------+
     | Column name                     | Type           | Notes                        |
@@ -36,7 +42,7 @@ class GoodreadsImporter:
     +---------------------------------+----------------+------------------------------+
     | ISBN13                          | str            | value is "=" if empty        |
     +---------------------------------+----------------+------------------------------+
-    | My Rating                       | int            |                              |
+    | My Rating                       | int            | 0, 1, 2, 3, 4, 5             |
     +---------------------------------+----------------+------------------------------+
     | Average Rating                  | float          | 2 decimals                   |
     +---------------------------------+----------------+------------------------------+

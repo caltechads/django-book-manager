@@ -10,9 +10,9 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
+sys.path.insert(0, os.path.abspath('../../sandbox'))
 
 from typing import List, Dict, Tuple, Optional
 import sphinx_rtd_theme  # pylint: disable=unused-import  # noqa:F401
@@ -40,7 +40,8 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
     'sphinx.ext.intersphinx',
-    'sphinx_rtd_theme'
+    'sphinx_rtd_theme',
+    "sphinxcontrib_django2",
 ]
 
 source_suffix = ".rst"
@@ -58,15 +59,20 @@ add_module_names = True
 
 # Make Sphinx not expand all our Type Aliases
 
-autodoc_member_order = 'bysource'
+autodoc_member_order = 'groupwise'
 autodoc_type_aliases = {
 }
 
 # the locations and names of other projects that should be linked to this one
 intersphinx_mapping: Dict[str, Tuple[str, Optional[str]]] = {
     'python': ('https://docs.python.org/3', None),
+    'django': ('http://docs.djangoproject.com/en/dev/', 'http://docs.djangoproject.com/en/dev/_objects/'),
 }
 
+# Configure the path to the Django settings module
+django_settings = "demo.settings"
+# Include the database table names of Django models
+django_show_db_tables = True
 
 # -- Options for HTML output -------------------------------------------------
 

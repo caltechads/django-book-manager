@@ -1,5 +1,7 @@
 # django-book-manager
 
+**Documentation**: https://django-book-manager.readthedocs.org
+
 This reusable Django application provides models suitable for managing a list of
 books with ratings, somewhat like a private [Goodreads](https://goodreads.com).
 

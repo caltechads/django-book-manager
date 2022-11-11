@@ -4,86 +4,56 @@
 Developer Interface
 ===================
 
-.. module:: ldap_faker
+Models
+------
 
-This part of the documentation covers all the classes and functions that make up ``python-ldap-faker``.
+.. module:: book_manager.models
 
-Unittest Support
-----------------
+This part of the documentation covers all the models provided by ``django-book-manager``.
 
-.. autoclass:: LDAPFakerMixin
-    :inherited-members:
-    :undoc-members:
+Books
+^^^^^
 
-.. autoclass:: LDAPCallRecord
+.. autoclass:: Book
     :members:
+    :undoc-members:
 
-.. autoclass:: CallHistory
-    :inherited-members:
+.. autoclass:: Author
+    :members:
+    :undoc-members:
+
+.. autoclass:: BookAuthor
+    :members:
+    :undoc-members:
+
+.. autoclass:: Publisher
+    :members:
+    :undoc-members:
+
+.. autoclass:: Binding
+    :members:
     :undoc-members:
 
 
-python-ldap replacements
-------------------------
+Readings
+^^^^^^^^
 
-.. autoclass:: FakeLDAP
-    :inherited-members:
+A ``Reading`` is a single person's use of a :py:class:`Book`.  It records that
+person's notes, ratings, reading count, etc.
+
+.. autoclass:: Reading
+    :members:
     :undoc-members:
 
-.. autoclass:: FakeLDAPObject
-    :inherited-members:
-    :undoc-members:
-
-
-LDAP Server like objects
-------------------------
-
-.. autoclass:: LDAPServerFactory
-    :inherited-members:
-    :undoc-members:
-
-.. autoclass:: ObjectStore
-    :inherited-members:
-    :undoc-members:
-
-.. autoclass:: OptionStore
-    :inherited-members:
+.. autoclass:: Shelf
+    :members:
     :undoc-members:
 
 
-Hook management
----------------
+Importers
+---------
 
-.. autodata:: hooks
+.. module:: book_manager.importers
 
-.. autoclass:: Hook
-    :inherited-members:
-    :undoc-members:
-
-.. autoclass:: HookDefinition
-    :inherited-members:
-    :undoc-members:
-
-.. autoclass:: HookRegistry
-    :inherited-members:
-    :undoc-members:
-
-
-Type Aliases
-------------
-
-.. autodata:: ldap_faker.types.LDAPOptionValue
-
-.. autodata:: ldap_faker.types.LDAPData
-
-.. autodata:: ldap_faker.types.LDAPRecord
-
-.. autodata:: ldap_faker.types.LDAPSearchResult
-
-.. autodata:: ldap_faker.types.ModList
-
-.. autodata:: ldap_faker.types.AddModList
-
-.. autodata:: ldap_faker.types.LDAPFixtureList
-
-
+.. autoclass:: GoodreadsImporter
+    :members:

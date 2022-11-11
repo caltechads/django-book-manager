@@ -7,68 +7,27 @@ from book_manager.importers import GoodreadsImporter
 
 User = get_user_model()
 
+
 class Command(BaseCommand):
     """
-    Import a Goodreads CSV file into the database.
+    **Usage**: ``./manage.py import_csv [--overwrite] <csvfile> <username>``
 
-    A Goodreads export should have these columns:
+    If a book already exists as a :py:class:`Book`, the database entry will not
+    be updated unless the `--overwrite` flag is provided.
 
-    +---------------------------------+----------------+------------------------------+
-    | Column name                     | Type           | Notes                        |
-    +=================================+================+==============================+
-    | Book Id                         | int, unique    | goodreads internal id        |
-    +---------------------------------+----------------+------------------------------+
-    | Title                           | str            |                              |
-    +---------------------------------+----------------+------------------------------+
-    | Author                          | str            | First Last                   |
-    +---------------------------------+----------------+------------------------------+
-    | Author l-f                      | str            | Last, First                  |
-    +---------------------------------+----------------+------------------------------+
-    | Additional Authors              | str            | First Last1, First Last2...  |
-    +---------------------------------+----------------+------------------------------+
-    | ISBN                            | str            | value is "=" if empty        |
-    +---------------------------------+----------------+------------------------------+
-    | ISBN13                          | str            | value is "=" if empty        |
-    +---------------------------------+----------------+------------------------------+
-    | My Rating                       | int            |                              |
-    +---------------------------------+----------------+------------------------------+
-    | Average Rating                  | float          | 2 decimals                   |
-    +---------------------------------+----------------+------------------------------+
-    | Publisher                       | str            | can be empty                 |
-    +---------------------------------+----------------+------------------------------+
-    | Binding                         | str            | can be empty                 |
-    +---------------------------------+----------------+------------------------------+
-    | Number of Pages                 | int            | can be empty                 |
-    +---------------------------------+----------------+------------------------------+
-    | Year Published                  | int            | can be empty                 |
-    +---------------------------------+----------------+------------------------------+
-    | Original Publication Year       | int            | can be empty                 |
-    +---------------------------------+----------------+------------------------------+
-    | Date read                       | date           | YYYY/MM/DD                   |
-    +---------------------------------+----------------+------------------------------+
-    | Date added                      | date           | YYYY/MM/DD                   |
-    +---------------------------------+----------------+------------------------------+
-    | Bookshelves                     | str            | comma separated              |
-    +---------------------------------+----------------+------------------------------+
-    | Bookshelves with positions      | str            | NAME (#NUM), comma sep       |
-    +---------------------------------+----------------+------------------------------+
-    | Exclusive Shelf                 | str            | NAME                         |
-    +---------------------------------+----------------+------------------------------+
-    | My Review                       | text           | can be empty                 |
-    +---------------------------------+----------------+------------------------------+
-    | Spoiler                         | text           | can be empty                 |
-    +---------------------------------+----------------+------------------------------+
-    | Private Notes                   | text           | can be empty                 |
-    +---------------------------------+----------------+------------------------------+
-    | Read count                      | int            |                              |
-    +---------------------------------+----------------+------------------------------+
-    | Owned copies                    | int            |                              |
-    +---------------------------------+----------------+------------------------------+
+    `<username>` must refer to an existing Django user.
+
+    See the docstring for :py:class:`GoodreadsImporter` for more information on
+    how the import process works.
+
     """
-    args = '<csvfile>'
+    args = '[--overwrite] <csvfile> <username>'
     help = ('Imports a Goodreads CSV file into our database.')
 
     def add_arguments(self, parser: ArgumentParser) -> None:
+        """
+        :hidden:
+        """
         parser.add_argument(
             'csvfile',
             metavar='csvfile',
@@ -89,6 +48,9 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options) -> None:
+        """
+        :hidden:
+        """
         importer = GoodreadsImporter()
         user = User.objects.get(username=options['username'])
         importer.run(options['csvfile'], user, overwrite=options['overwrite'])
