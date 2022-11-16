@@ -26,6 +26,9 @@ class Binding(models.Model):
         help_text=_('Binding type')
     )
 
+    def __str__(self) -> str:
+        return self.name
+
     class Meta:
         verbose_name: str = _('binding')
         verbose_name_plural: str = _('bindings')
@@ -41,6 +44,9 @@ class Publisher(TimeStampedModel, models.Model):
         max_length=255,
         help_text=_('Publisher name')
     )
+
+    def __str__(self) -> str:
+        return self.name
 
     class Meta:
         verbose_name: str = _('publisher')
@@ -73,7 +79,7 @@ class Author(TimeStampedModel, models.Model):
         unique=True
     )
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.full_name
 
     class Meta:
@@ -228,6 +234,9 @@ class Shelf(models.Model):
         verbose_name=_('Reader'),
         related_name='shelves'
     )
+
+    def __str__(self) -> str:
+        return self.name
 
     class Meta:
         verbose_name: str = _('shelf')
