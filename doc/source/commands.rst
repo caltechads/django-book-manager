@@ -6,7 +6,7 @@ import_csv
 
 :synposis: Imports a Goodreads CSV export into our database and associate the books listed therein with a Django user.
 
-The `import_csv` command imports a Goodreads CSV export into our database,
+The ``import_csv`` command imports a Goodreads CSV export into our database,
 creating or updating :py:class:`Book` objects (with their dependent
 :py:class:`Binding`, :py:class:`Publisher` and :py:class:`Author` objects),
 and associates them with user by creating a :py:class:`Reading` object

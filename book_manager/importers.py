@@ -19,6 +19,7 @@ class GoodreadsImporter:
 
     Import data into our database from a Goodreeads CSV Export.
 
+    * Import any new :py:class:`Binding`, :py:class:`Publisher`, and :py:class:`
     * Import the book from each row as a :py:class:`Book`
     * Import the user specific data from each row as a :py:class:`Reading`
       associated with the user ``user``

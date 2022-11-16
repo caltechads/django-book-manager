@@ -3,13 +3,13 @@ from typing import List
 from django.urls import path, URLPattern
 
 from .views import (
-    ProjectListView
+    DashboardView
 )
 
 
-app_name: str = "sphinx_hosting"
+app_name: str = "book_manager"
 
 urlpatterns: List[URLPattern] = [
-    path('', ProjectListView.as_view(), name='project--list'),
+    path('', DashboardView.as_view(), name='home'),
 
 ]
