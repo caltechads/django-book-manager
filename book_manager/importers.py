@@ -19,9 +19,10 @@ class GoodreadsImporter:
 
     Import data into our database from a Goodreeads CSV Export.
 
-    * Import any new :py:class:`Binding`, :py:class:`Publisher`, and :py:class:`
-    * Import the book from each row as a :py:class:`Book`
-    * Import the user specific data from each row as a :py:class:`Reading`
+    * Import any new :py:class:`book_manager.models.Binding`, :py:class:`book_manager.models.Publisher`,
+      and :py:class:`book_manager.models.Author` instances
+    * Import the book from each row as a :py:class:`book_manager.models.Book`
+    * Import the user specific data from each row as a :py:class:`book_manager.models.Reading`
       associated with the user ``user``
 
     A Goodreads CSV export has these columns:
@@ -209,14 +210,16 @@ class GoodreadsImporter:
 
     def run(self, filename: str, user: User, overwrite: bool = False) -> None:
         """
-        Load the books in the CSV identified by ``filename`` into
-        the database, splitting each row into appropriate :py:class:`Book`,
-        :py:class:`Author`, :py:class:`Publisher` and :py:class:`Binding`
-        records, creating the foreign keys and many-to-many targets as
-        needed.
+        Load the books in the CSV identified by ``filename`` into the database,
+        splitting each row into appropriate
+        :py:class:`book_manager.models.Book`,
+        :py:class:`book_manager.models.Author`,
+        :py:class:`book_manager.models.Publisher` and
+        :py:class:`book_manager.models.Binding` records, creating the foreign
+        keys and many-to-many targets as needed.
 
-        :py:class:`Reading` data will always be overwritten, and
-        :py:class:`Book` data will be preserved, unless ``override`` is
+        :py:class:`bookmanager.models.Reading` data will always be overwritten, and
+        :py:class:`bookmanager.models.Book` data will be preserved, unless ``override`` is
         ``True``.
 
         Args:

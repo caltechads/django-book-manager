@@ -22,7 +22,7 @@ class Command(BaseCommand):
 
     """
     args = '[--overwrite] <csvfile> <username>'
-    help = ('Imports a Goodreads CSV file into our database.')
+    help = ('Imports a Goodreads CSV export into our database.')
 
     def add_arguments(self, parser: ArgumentParser) -> None:
         """
