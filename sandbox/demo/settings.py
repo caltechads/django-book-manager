@@ -5,7 +5,6 @@ from typing import Dict, Any, List, Optional
 import environ
 import structlog
 
-from . import __version__
 from .logging import censor_password_processor, request_context_logging_processor
 
 # The name of our project
