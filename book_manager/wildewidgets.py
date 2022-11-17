@@ -28,7 +28,7 @@ class BookManagerMenu(VerticalDarkMenu):
     * Change the menu logo alt text by updating :py:attr:`brand_text`
     """
 
-    brand_image: str = static("core/images/logo.png")
+    brand_image: str = static("book_manager/images/logo.jpg")
     brand_image_width: str = "100%"
     brand_text: str = "Book Manager"
     items: List[Tuple[str, str]] = [
