@@ -4,7 +4,7 @@ USER root
 
 ENV LC_ALL=en_US.utf8 LANG=en_US.utf8 PYCURL_SSL_LIBRARY=nss SHELL_PLUS=ipython IPYTHONDIR=/etc/ipython
 
-RUN amazon-linux-extras install nginx1 rust1 python3.8 && \
+RUN amazon-linux-extras install nginx1 rust1 && \
     yum -y update && \
     yum -y install \
         gcc \
