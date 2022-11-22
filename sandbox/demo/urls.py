@@ -3,7 +3,7 @@ from django.urls import path, include
 from django.conf import settings
 from wildewidgets import WildewidgetDispatch
 
-from .core import urls as core_urls
+from book_manager import urls as core_urls
 
 
 urlpatterns = [

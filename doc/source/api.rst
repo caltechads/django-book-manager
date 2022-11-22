@@ -50,6 +50,25 @@ person's notes, ratings, reading count, etc.
     :undoc-members:
 
 
+Widgets
+-------
+
+This part of the documentation covers all the reusable `django-wildewidgets
+<https://github.com/caltechads/django-wildewidgets>`_ widgets provided by
+``django-book-manager``.
+
+.. module:: book_manager.wildewidgets
+
+.. autoclass:: BookManagerMenu
+    :members:
+
+.. autoclass:: BookTableWidget
+    :members:
+
+.. autoclass:: BookTable
+    :members:
+
+
 Importers
 ---------
 
