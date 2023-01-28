@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.db.models import Model, QuerySet, Count, Q
 from wildewidgets import (
     BasicModelTable,
-    BreadrumbBlock,
+    BreadcrumbBlock,
     CardWidget,
     DataTableFilter,
     WidgetListLayoutHeader,
@@ -36,7 +36,7 @@ class BookManagerMenu(VerticalDarkMenu):
     ]
 
 
-class BookManagerBreadcrumbs(BreadrumbBlock):
+class BookManagerBreadcrumbs(BreadcrumbBlock):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
